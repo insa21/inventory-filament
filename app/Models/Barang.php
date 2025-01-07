@@ -14,4 +14,9 @@ class Barang extends Model
         'kode_barang',
         'harga_barang',
     ];
+
+    public function details()
+    {
+        return $this->hasMany(Detail::class);
+    }
 }
