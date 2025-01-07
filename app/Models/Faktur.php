@@ -12,7 +12,18 @@ class Faktur extends Model
     use SoftDeletes;
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'kode_faktur',
+        'tanggal_faktur',
+        'kode_customer',
+        'customer_id',
+        'ket_faktur',
+        'total',
+        'nominal_charge',
+        'charge',
+        'total_final',
+    ];
+
 
     protected $table = 'fakturs';
 
