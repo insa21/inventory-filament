@@ -31,6 +31,7 @@ class BarangResource extends Resource
                     ->required(),
                 TextInput::make('harga_barang')
                     ->required()
+                    ->numeric(),
             ]);
     }
 

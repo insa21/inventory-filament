@@ -35,7 +35,6 @@ class CustomerResource extends Resource
                     ->required(),
                 TextInput::make('kode_customer')
                     ->label('Kode')
-                    ->numeric()
                     ->required(),
                 TextInput::make('alamat_customer')
                     ->label('Alamat')

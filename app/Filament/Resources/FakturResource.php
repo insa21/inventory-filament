@@ -4,15 +4,15 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Faktur;
+use App\Models\{Faktur, Barang, CustomerModel, Datail, User};
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\{Card, Select, Toggle, Fieldset, Repeater, Textarea, TextInput, DatePicker};
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FakturResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\{Card, Select, Toggle, Fieldset, Repeater, Textarea, TextInput, DatePicker};
 
 class FakturResource extends Resource
 {
@@ -35,16 +35,23 @@ class FakturResource extends Resource
 
             Fieldset::make('Informasi Customer')
                 ->schema([
-                    TextInput::make('kode_customer')
-                        ->label('Kode Customer')
-                        ->integer()
-                        ->required()
-                        ->maxLength(255),
-
                     Select::make('customer_id')
+                        ->reactive()
                         ->label('Customer')
                         ->relationship('customer', 'nama_customer')
-                        ->required(),
+                        ->required()
+                        ->afterStateUpdated(function ($state, callable $set) {
+                            $customer = CustomerModel::find($state);
+
+                            if ($customer) {
+                                $set('kode_customer', $customer->kode_customer);
+                            }
+                        }),
+                    TextInput::make('kode_customer')
+                        ->label('Kode Customer')
+                        ->disabled()
+                        ->required()
+                        ->maxLength(255),
                 ])->columns(2),
 
             Fieldset::make('Detail Barang')
@@ -55,7 +62,16 @@ class FakturResource extends Resource
                             Select::make('barang_id')
                                 ->relationship('barang', 'nama_barang')
                                 ->label('Barang')
-                                ->required(),
+                                ->required()
+                                ->reactive()
+                                ->afterStateUpdated(function ($state, callable $set) {
+                                    $barang = Barang::find($state);
+
+                                    if ($barang) {
+                                        $set('nama_barang', $barang->nama_barang);
+                                        $set('harga_barang', $barang->harga_barang);
+                                    }
+                                }),
 
                             TextInput::make('diskon')
                                 ->numeric()
@@ -66,7 +82,7 @@ class FakturResource extends Resource
                                 ->label('Nama Barang')
                                 ->required(),
 
-                            TextInput::make('harga')
+                            TextInput::make('harga_barang')
                                 ->numeric()
                                 ->label('Harga')
                                 ->required(),
@@ -92,6 +108,7 @@ class FakturResource extends Resource
                 ->schema([
                     Textarea::make('ket_faktur')
                         ->label('Keterangan Faktur')
+                        ->columnSpan(2)
                         ->nullable()
                         ->rows(5)
                         ->maxLength(255),
