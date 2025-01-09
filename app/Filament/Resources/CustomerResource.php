@@ -40,7 +40,7 @@ class CustomerResource extends Resource
                     ->label('Alamat')
                     ->required(),
                 TextInput::make('telepon_customer')
-                    ->integer()
+                    ->numeric()
                     ->label('Telepon')
                     ->required(),
             ]);

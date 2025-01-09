@@ -4,7 +4,8 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\{Faktur, Barang, CustomerModel, Datail, User};
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -12,7 +13,9 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FakturResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\{Faktur, Barang, CustomerModel, Datail, User};
 use Filament\Forms\Components\{Card, Select, Toggle, Fieldset, Repeater, Textarea, TextInput, DatePicker};
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class FakturResource extends Resource
 {
@@ -46,10 +49,17 @@ class FakturResource extends Resource
                             if ($customer) {
                                 $set('kode_customer', $customer->kode_customer);
                             }
+                        })
+                        ->afterStateHydrated(function ($state, callable $set) {
+                            $customer = CustomerModel::find($state);
+
+                            if ($customer) {
+                                $set('kode_customer', $customer->kode_customer);
+                            }
                         }),
                     TextInput::make('kode_customer')
                         ->label('Kode Customer')
-                        ->disabled()
+                        // ->disabled()
                         ->required()
                         ->maxLength(255),
                 ])->columns(2),
@@ -57,6 +67,7 @@ class FakturResource extends Resource
             Fieldset::make('Detail Barang')
                 ->schema([
                     Repeater::make('details')
+                        ->label('Barang')
                         ->relationship()
                         ->schema([
                             Select::make('barang_id')
@@ -73,34 +84,55 @@ class FakturResource extends Resource
                                     }
                                 }),
 
-                            TextInput::make('diskon')
-                                ->numeric()
-                                ->label('Diskon')
-                                ->required(),
-
                             TextInput::make('nama_barang')
+                                // ->disabled()
                                 ->label('Nama Barang')
                                 ->required(),
 
                             TextInput::make('harga_barang')
-                                ->numeric()
+                                ->prefix('Rp')
+                                // ->disabled()
+                                ->integer()
                                 ->label('Harga')
                                 ->required(),
 
-                            TextInput::make('subtotal')
-                                ->numeric()
-                                ->label('Subtotal')
-                                ->required(),
-
                             TextInput::make('qty')
-                                ->numeric()
+                                ->integer()
                                 ->label('Qty')
-                                ->required(),
+                                ->required()
+                                ->reactive()
+                                ->afterStateUpdated(function (Set $set, $state, Get $get) {
+                                    $tampungHarga = $get('harga_barang');
+                                    $set('hasil_qty', intval($state * $tampungHarga));
+                                }),
 
                             TextInput::make('hasil_qty')
                                 ->numeric()
+                                // ->disabled()
                                 ->label('Hasil Qty')
                                 ->required(),
+
+                            TextInput::make('diskon')
+                                ->numeric()
+                                ->prefix('%')
+                                ->label('Diskon')
+                                ->required()
+                                ->reactive()
+                                ->afterStateUpdated(function (Set $set, $state, Get $get) {
+                                    $hasilQTY = $get('hasil_qty');
+                                    $diskon = $hasilQTY * ($state / 100);
+                                    $hasil = $hasilQTY - $diskon;
+
+                                    $set('subtotal', intval($hasil));
+                                }),
+
+                            TextInput::make('subtotal')
+                                // ->disabled()
+                                ->prefix('Rp')
+                                ->numeric()
+                                ->label('Subtotal')
+                                ->required()
+                                ->live(),
                         ])
                 ])->columns(2),
 
@@ -116,6 +148,14 @@ class FakturResource extends Resource
 
             Card::make([
                 TextInput::make('total')
+                    ->placeholder(function (Set $set, Get $get) {
+                        $detail = collect($get('details'))->pluck('subtotal')->sum();
+                        if ($detail == null) {
+                            $set('total', 0);
+                        } else {
+                            $set('total', $detail);
+                        }
+                    })
                     ->label('Total')
                     ->required()
                     ->numeric(),
@@ -123,7 +163,16 @@ class FakturResource extends Resource
                 TextInput::make('nominal_charge')
                     ->label('Nominal Charge')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->reactive()
+                    ->afterStateUpdated(function (Set $set, $state, Get $get) {
+                        $total = $get('total');
+                        $charge = $total * ($state / 100);
+                        $hasil = $total + $charge;
+
+                        $set('total_final', $hasil);
+                        $set('charge', $charge);
+                    }),
 
                 TextInput::make('charge')
                     ->label('Charge')
@@ -138,7 +187,7 @@ class FakturResource extends Resource
 
             Toggle::make('deleted_at')
                 ->label('Soft Deleted')
-                ->disabled()
+                // ->disabled()
                 ->hidden(),
         ]);
     }
