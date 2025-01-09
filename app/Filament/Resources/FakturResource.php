@@ -14,7 +14,16 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FakturResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Models\{Faktur, Barang, CustomerModel, Datail, User};
-use Filament\Forms\Components\{Card, Select, Toggle, Fieldset, Repeater, Textarea, TextInput, DatePicker};
+use Filament\Forms\Components\{
+    Card,
+    Select,
+    Toggle,
+    Fieldset,
+    Repeater,
+    Textarea,
+    TextInput,
+    DatePicker
+};
 use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class FakturResource extends Resource
@@ -45,21 +54,20 @@ class FakturResource extends Resource
                         ->required()
                         ->afterStateUpdated(function ($state, callable $set) {
                             $customer = CustomerModel::find($state);
-
                             if ($customer) {
                                 $set('kode_customer', $customer->kode_customer);
                             }
                         })
                         ->afterStateHydrated(function ($state, callable $set) {
                             $customer = CustomerModel::find($state);
-
                             if ($customer) {
                                 $set('kode_customer', $customer->kode_customer);
                             }
                         }),
                     TextInput::make('kode_customer')
                         ->label('Kode Customer')
-                        // ->disabled()
+                        ->disabled()
+                        ->dehydrated()
                         ->required()
                         ->maxLength(255),
                 ])->columns(2),
@@ -77,7 +85,6 @@ class FakturResource extends Resource
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, callable $set) {
                                     $barang = Barang::find($state);
-
                                     if ($barang) {
                                         $set('nama_barang', $barang->nama_barang);
                                         $set('harga_barang', $barang->harga_barang);
@@ -85,13 +92,15 @@ class FakturResource extends Resource
                                 }),
 
                             TextInput::make('nama_barang')
-                                // ->disabled()
+                                ->disabled()
+                                ->dehydrated()
                                 ->label('Nama Barang')
                                 ->required(),
 
                             TextInput::make('harga_barang')
                                 ->prefix('Rp')
-                                // ->disabled()
+                                ->disabled()
+                                ->dehydrated()
                                 ->integer()
                                 ->label('Harga')
                                 ->required(),
@@ -108,7 +117,8 @@ class FakturResource extends Resource
 
                             TextInput::make('hasil_qty')
                                 ->numeric()
-                                // ->disabled()
+                                ->disabled()
+                                ->dehydrated()
                                 ->label('Hasil Qty')
                                 ->required(),
 
@@ -127,14 +137,19 @@ class FakturResource extends Resource
                                 }),
 
                             TextInput::make('subtotal')
-                                // ->disabled()
+                                ->disabled()
+                                ->dehydrated()
                                 ->prefix('Rp')
                                 ->numeric()
                                 ->label('Subtotal')
                                 ->required()
+                                ->columnSpan(2)
                                 ->live(),
                         ])
-                ])->columns(2),
+                        ->columns(2), // Membagi repeater menjadi dua kolom untuk setiap form baru
+                ])
+                ->columns(1), // Fieldset tetap satu kolom agar repeater terpisah
+
 
             Fieldset::make('Informasi Tambahan')
                 ->schema([
@@ -156,7 +171,10 @@ class FakturResource extends Resource
                             $set('total', $detail);
                         }
                     })
+                    ->disabled()
+                    ->dehydrated()
                     ->label('Total')
+                    ->prefix('Rp')
                     ->required()
                     ->numeric(),
 
@@ -176,18 +194,24 @@ class FakturResource extends Resource
 
                 TextInput::make('charge')
                     ->label('Charge')
+                    ->disabled()
+                    ->dehydrated()
                     ->required()
                     ->numeric(),
 
                 TextInput::make('total_final')
                     ->label('Total Final')
                     ->required()
+                    ->disabled()
+                    ->dehydrated()
+                    ->prefix('Rp')
                     ->numeric(),
             ])->columns(2),
 
             Toggle::make('deleted_at')
                 ->label('Soft Deleted')
-                // ->disabled()
+                ->disabled()
+                ->dehydrated()
                 ->hidden(),
         ]);
     }

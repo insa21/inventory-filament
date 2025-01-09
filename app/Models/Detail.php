@@ -15,7 +15,7 @@ class Detail extends Model
         'faktur_id',
         'diskon',
         'nama_barang',
-        'harga',
+        'harga_barang',
         'subtotal',
         'qty',
         'hasil_qty',
