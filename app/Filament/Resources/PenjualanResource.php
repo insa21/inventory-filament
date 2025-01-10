@@ -10,6 +10,7 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Actions\Action;
 use App\Filament\Resources\PenjualanResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PenjualanResource\RelationManagers;
@@ -18,7 +19,11 @@ class PenjualanResource extends Resource
 {
     protected static ?string $model = Penjualan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
+    protected static ?string $slug = 'kelola-penjualan';
+    protected static ?string $navigationLabel = 'Kelola Penjualan';
+    protected static ?string $navigationGroup = 'Kelola';
+    protected static ?string $label = 'Kelola Penjualan';
 
     public static function form(Form $form): Form
     {
@@ -68,6 +73,17 @@ class PenjualanResource extends Resource
                 //     ->label('Keterangan'),
 
             ])
+            ->emptyStateHeading('Tidak ada Data Laporan')
+            ->emptyStateDescription('Silahkan Tambahkan Faktur Terlebih Dahulu')
+            ->emptyStateIcon('heroicon-o-exclamation-triangle')
+            ->emptyStateActions([
+                Action::make('create')
+                    ->label('Buat Faktur')
+                    ->url(route('filament.admin.resources.fakturs.create'))
+                    ->icon('heroicon-m-plus')
+                    ->button(),
+            ])
+
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
