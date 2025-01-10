@@ -234,10 +234,12 @@ class FakturResource extends Resource
                     ->label('Nama Customer'),
 
                 TextColumn::make('total')
-                    ->label('Total'),
+                    ->label('Total')
+                    ->formatStateUsing(fn(Faktur $record): string => 'Rp ' . number_format($record->total, 0, '.', '.')),
 
                 TextColumn::make('total_final')
-                    ->label('Total Final'),
+                    ->label('Total Final')
+                    ->formatStateUsing(fn(Faktur $record): string => 'Rp ' . number_format($record->total_final, 0, '.', '.')),
 
                 TextColumn::make('deleted_at')
                     ->label('Deleted At')

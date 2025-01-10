@@ -44,6 +44,7 @@ class PenjualanResource extends Resource
                 TextColumn::make('jumlah')
                     ->sortable()
                     ->label('Jumlah')
+                    ->formatStateUsing(fn(Penjualan $record): string => 'Rp ' . number_format($record->jumlah, 0, '.', '.'))
                     ->searchable(),
                 TextColumn::make('customer.nama_customer')
                     ->sortable()
@@ -53,12 +54,18 @@ class PenjualanResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'reviewing' => 'warning',
+                        '1' => 'success',
+                        '0' => 'danger',
+                    })
+                    ->formatStateUsing(fn(Penjualan $record): string => $record->status == 0 ? 'Belum Lunas' : 'Lunas')
                     ->label('Status'),
-                TextColumn::make('keterangan')
-                    ->sortable()
-                    ->searchable()
-                    ->badge()
-                    ->label('Keterangan'),
+                // TextColumn::make('keterangan')
+                //     ->sortable()
+                //     ->searchable()
+                //     ->badge()
+                //     ->label('Keterangan'),
 
             ])
             ->filters([

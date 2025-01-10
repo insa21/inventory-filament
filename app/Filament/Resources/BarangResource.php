@@ -41,7 +41,8 @@ class BarangResource extends Resource
             ->columns([
                 TextColumn::make('nama_barang'),
                 TextColumn::make('kode_barang'),
-                TextColumn::make('harga_barang'),
+                TextColumn::make('harga_barang')
+                    ->formatStateUsing(fn(Barang $record): string => 'Rp ' . number_format($record->harga_barang, 0, '.', '.')),
             ])
             ->filters([
                 //
