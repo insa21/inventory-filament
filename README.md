@@ -1,19 +1,18 @@
-# Laravel Invoice Management System
+# 🧾 Laravel Invoice Management System
 
-Aplikasi ini adalah sistem manajemen faktur yang dibangun menggunakan framework **Laravel** dengan integrasi **Laravel Filament**. Aplikasi ini dirancang untuk mempermudah pengelolaan data pelanggan, barang, dan faktur dengan fitur CRUD (Create, Read, Update, Delete) serta laporan penjualan.
+Sistem manajemen faktur berbasis web ini dibangun menggunakan framework **Laravel** dengan integrasi **Laravel Filament** untuk admin panel yang modern dan responsif. Aplikasi ini dirancang untuk mempermudah pengelolaan data pelanggan, barang, faktur, serta menyediakan laporan penjualan yang terstruktur.
 
 ---
 
 ## ✨ Fitur Utama
 
-1. **Dasbor**: Menampilkan ringkasan informasi utama.
-2. **Manajemen Barang**: Kelola data barang dengan mudah.
-3. **Manajemen Pelanggan**: Atur data pelanggan Anda.
-4. **Manajemen Faktur**:
-    - Menampilkan daftar faktur.
-    - Melihat detail faktur.
-    - Menambahkan, mengedit, dan menghapus faktur.
-5. **Laporan Penjualan**: Analisis data penjualan dengan laporan yang terstruktur.
+-   **📊 Dasbor**: Ringkasan informasi penting dalam satu tempat.
+-   **🛒 Manajemen Barang**: Tambah, ubah, dan hapus data barang.
+-   **👥 Manajemen Pelanggan**: Kelola data pelanggan dengan mudah.
+-   **📄 Faktur**:
+    -   Lihat daftar faktur dengan detail lengkap.
+    -   Tambah, edit, atau hapus faktur sesuai kebutuhan.
+-   **📈 Laporan Penjualan**: Analisis data penjualan untuk mendukung keputusan bisnis.
 
 ---
 
@@ -22,23 +21,25 @@ Aplikasi ini adalah sistem manajemen faktur yang dibangun menggunakan framework 
 -   **Framework**: Laravel 11
 -   **Admin Panel**: Laravel Filament
 -   **Frontend**: Blade Template Engine dengan Tailwind CSS
--   **Database**: SQLite
+-   **Database**: SQLite (simple dan cepat)
 -   **Autentikasi**: Laravel Breeze atau Jetstream (opsional)
 
 ---
 
 ## ⚙️ Instalasi
 
+Ikuti langkah-langkah berikut untuk menginstal aplikasi:
+
 1. **Clone repository ini**:
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/insa21/inventory-filament.git
     ```
 
 2. **Masuk ke direktori project**:
 
     ```bash
-    cd <nama-folder>
+    cd inventory-filament
     ```
 
 3. **Instal dependensi menggunakan Composer**:
@@ -90,62 +91,59 @@ Aplikasi ini adalah sistem manajemen faktur yang dibangun menggunakan framework 
     php artisan filament:install
     ```
 
-10. (Opsional) **Seed database dengan data awal**:
+10. **(Opsional) Seed database dengan data awal**:
 
-```bash
-php artisan db:seed
-```
+    ```bash
+    php artisan db:seed
+    ```
 
 11. **Jalankan aplikasi**:
 
-```bash
-php artisan serve
-```
+    ```bash
+    php artisan serve
+    ```
 
 12. **Akses aplikasi di browser**:
-
--   Aplikasi: `http://localhost:8000`
--   Panel Admin Filament: `http://localhost:8000/admin`
+    - Aplikasi: `http://localhost:8000`
+    - Panel Admin Filament: `http://localhost:8000/admin`
 
 ---
 
-## 🧭 Cara Penggunaan
+## 🧭 Panduan Penggunaan
 
-### Kelola Data Pelanggan
+### 1. Kelola Data Pelanggan
 
--   Tambahkan pelanggan baru melalui menu **Kelola Customer** di panel admin Filament.
--   Edit atau hapus data pelanggan sesuai kebutuhan.
+Tambahkan, edit, atau hapus data pelanggan melalui menu **Kelola Customer** pada panel admin.
 
-### Kelola Data Barang
+### 2. Kelola Data Barang
 
--   Tambahkan data barang melalui menu **Barang**.
--   Edit atau hapus data barang yang sudah terdaftar.
+Tambahkan barang baru, edit, atau hapus data barang melalui menu **Barang**.
 
-### Kelola Faktur
+### 3. Kelola Faktur
 
--   Tambahkan faktur baru melalui tombol **Buat** di halaman Faktur.
+-   Buat faktur baru melalui tombol **Buat** di halaman Faktur.
 -   Lihat detail faktur menggunakan tombol **Lihat**.
 -   Edit atau hapus faktur menggunakan tombol **Ubah** dan **Hapus**.
 
-### Laporan Penjualan
+### 4. Laporan Penjualan
 
--   Analisis data penjualan melalui menu **Laporan Penjualan**.
+Lihat laporan penjualan melalui menu **Laporan Penjualan** untuk analisis data.
 
 ---
 
-## 📁 Struktur Folder Penting
+## 📂 Struktur Folder Penting
 
--   `app/Models`: Berisi model database.
--   `app/Http/Controllers`: Berisi controller untuk logika aplikasi.
--   `resources/views`: Berisi file tampilan Blade.
--   `routes/web.php`: Berisi rute aplikasi.
--   `routes/filament.php`: Berisi rute khusus untuk Laravel Filament.
+-   `app/Models`: Model database.
+-   `app/Http/Controllers`: Controller untuk logika aplikasi.
+-   `resources/views`: File tampilan Blade.
+-   `routes/web.php`: Rute aplikasi umum.
+-   `routes/filament.php`: Rute khusus untuk Laravel Filament.
 
 ---
 
 ## 🤝 Kontribusi
 
-Kami menyambut kontribusi Anda! Silakan ajukan pull request atau diskusikan ide Anda di bagian **Issues**.
+Kami menyambut kontribusi Anda! Silakan ajukan **Pull Request** atau diskusikan ide Anda melalui **Issues** di repository ini.
 
 ---
 
@@ -157,22 +155,22 @@ Aplikasi ini dilisensikan di bawah [MIT License](LICENSE).
 
 ## 📸 Screenshot
 
-### Tampilan Barang
+### 📦 Tampilan Barang
 
 ![Tampilan Barang](resources/image/Barang.png)
 
-### Tampilan Customer
+### 👥 Tampilan Customer
 
 ![Tampilan Customer](resources/image/customer.png)
 
-### Tampilan Faktur
+### 📄 Tampilan Faktur
 
 ![Tampilan Faktur](resources/image/faktur.png)
 
-### Tampilan Laporan Penjualan
+### 📈 Tampilan Laporan Penjualan
 
 ![Tampilan Penjualan](resources/image/Penjualan.png)
 
 ---
 
-💡 **Terima kasih telah menggunakan aplikasi ini!** Jika Anda memiliki pertanyaan atau masukan, jangan ragu untuk menghubungi kami.
+🌟 **Mulai gunakan aplikasi ini dan tingkatkan produktivitas Anda!** Jika ada pertanyaan atau masukan, jangan ragu untuk menghubungi kami.
