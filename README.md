@@ -1,66 +1,160 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Invoice Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi ini adalah sistem manajemen faktur yang dikembangkan menggunakan framework Laravel dengan integrasi Laravel Filament. Aplikasi ini dirancang untuk membantu pengguna mengelola data pelanggan, barang, dan faktur dengan fitur CRUD (Create, Read, Update, Delete) serta laporan penjualan.
 
-## About Laravel
+## Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. **Dasbor**: Menampilkan ringkasan informasi utama.
+2. **Manajemen Barang**: Mengelola data barang.
+3. **Manajemen Pelanggan**: Mengelola data pelanggan.
+4. **Faktur**:
+    - Menampilkan daftar faktur.
+    - Melihat detail faktur.
+    - Menambahkan, mengedit, dan menghapus faktur.
+5. **Laporan Penjualan**: Melihat laporan penjualan berdasarkan data faktur.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Teknologi yang Digunakan
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Framework**: Laravel 11
+-   **Admin Panel**: Laravel Filament
+-   **Frontend**: Blade Template Engine dengan Tailwind CSS (opsional)
+-   **Database**: SQLite
+-   **Autentikasi**: Laravel Breeze atau Jetstream (opsional)
 
-## Learning Laravel
+## Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone repository ini:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    ```bash
+    git clone <repository-url>
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Masuk ke direktori project:
 
-## Laravel Sponsors
+    ```bash
+    cd <nama-folder>
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. Instal dependensi menggunakan Composer:
 
-### Premium Partners
+    ```bash
+    composer install
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4. Salin file `.env.example` menjadi `.env`:
 
-## Contributing
+    ```bash
+    cp .env.example .env
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. Atur konfigurasi database di file `.env`:
 
-## Code of Conduct
+    ```env
+    DB_CONNECTION=sqlite
+    DB_DATABASE=/path/to/database.sqlite
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    Buat file database SQLite jika belum ada:
 
-## Security Vulnerabilities
+    ```bash
+    touch database/database.sqlite
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. Generate application key:
 
-## License
+    ```bash
+    php artisan key:generate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7. Jalankan migrasi database:
+
+    ```bash
+    php artisan migrate
+    ```
+
+8. Instal Laravel Filament:
+
+    ```bash
+    composer require filament/filament
+    ```
+
+9. Publish aset dan konfigurasi Filament:
+
+    ```bash
+    php artisan filament:install
+    ```
+
+10. (Opsional) Seed database dengan data awal:
+
+```bash
+php artisan db:seed
+```
+
+11. Jalankan aplikasi:
+
+```bash
+php artisan serve
+```
+
+12. Akses aplikasi di browser di alamat berikut:
+    ```
+    http://localhost:8000
+    ```
+    Untuk mengakses panel admin Filament:
+    ```
+    http://localhost:8000/admin
+    ```
+
+## Cara Penggunaan
+
+### Kelola Data Pelanggan
+
+-   Tambahkan data pelanggan baru melalui menu **Kelola Customer** di panel admin Filament.
+-   Edit atau hapus data pelanggan sesuai kebutuhan.
+
+### Kelola Data Barang
+
+-   Tambahkan data barang melalui menu **Barang** di panel admin Filament.
+-   Edit atau hapus barang yang sudah terdaftar.
+
+### Kelola Faktur
+
+-   Buat faktur baru melalui tombol **Buat** di halaman Faktur.
+-   Lihat detail faktur menggunakan tombol **Lihat**.
+-   Edit atau hapus faktur menggunakan tombol **Ubah** dan **Hapus**.
+
+### Laporan Penjualan
+
+-   Lihat laporan penjualan di menu **Laporan Penjualan** untuk menganalisis data penjualan.
+
+## Struktur Folder Penting
+
+-   `app/Models`: Berisi model database.
+-   `app/Http/Controllers`: Berisi controller untuk logika aplikasi.
+-   `resources/views`: Berisi file tampilan Blade.
+-   `routes/web.php`: Berisi rute aplikasi.
+-   `routes/filament.php`: Berisi rute khusus untuk Laravel Filament.
+
+## Kontribusi
+
+Silakan ajukan pull request jika ingin berkontribusi dalam pengembangan aplikasi ini. Pastikan Anda mengikuti pedoman kontribusi.
+
+## Lisensi
+
+Aplikasi ini dilisensikan di bawah [MIT License](LICENSE).
+
+---
+
+### Screenshot
+
+#### Tampilan Faktur
+
+![Tampilan Faktur](screenshots/faktur.png)
+
+#### Panel Admin
+
+![Panel Admin](screenshots/admin.png)
+
+---
+
+Terima kasih telah menggunakan aplikasi ini!
