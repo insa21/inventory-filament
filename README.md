@@ -147,13 +147,21 @@ Aplikasi ini dilisensikan di bawah [MIT License](LICENSE).
 
 ### Screenshot
 
+#### Tampilan Barang
+
+![Tampilan Barang](resources/image/Barang.png)
+
+#### Tampilan Customer
+
+![Tampilan Customer](resources/image/customer.png)
+
 #### Tampilan Faktur
 
-![Tampilan Faktur](screenshots/faktur.png)
+![Tampilan Faktur](resources/image/faktur.png)
 
-#### Panel Admin
+#### Tampilan Laporan Penjualan
 
-![Panel Admin](screenshots/admin.png)
+![Tampilan Penjualan](resources/image/Penjualan.png)
 
 ---
 
