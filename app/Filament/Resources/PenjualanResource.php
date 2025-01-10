@@ -20,10 +20,10 @@ class PenjualanResource extends Resource
     protected static ?string $model = Penjualan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
-    protected static ?string $slug = 'kelola-penjualan';
-    protected static ?string $navigationLabel = 'Kelola Penjualan';
-    protected static ?string $navigationGroup = 'Kelola';
-    protected static ?string $label = 'Kelola Penjualan';
+    protected static ?string $slug = 'laporan-penjualan';
+    protected static ?string $navigationLabel = 'Laporan Penjualan';
+    protected static ?string $navigationGroup = 'Faktur';
+    protected static ?string $label = 'Laporan Penjualan';
 
     public static function form(Form $form): Form
     {

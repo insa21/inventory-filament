@@ -30,6 +30,10 @@ class FakturResource extends Resource
 {
     protected static ?string $model = Faktur::class;
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    protected static ?string $slug = 'fakturs';
+    protected static ?string $navigationLabel = 'Faktur';
+    protected static ?string $navigationGroup = 'Faktur';
+    protected static ?string $label = 'Faktur';
 
     public static function form(Form $form): Form
     {
