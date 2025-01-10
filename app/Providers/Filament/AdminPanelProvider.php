@@ -44,6 +44,15 @@ class AdminPanelProvider extends PanelProvider
             // ->topNavigation() //untuk membuat navigasi diatas
             ->sidebarCollapsibleOnDesktop()
             ->collapsedSidebarWidth('9rem')
+            ->colors([
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Indigo,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
+            ])
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
