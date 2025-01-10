@@ -40,6 +40,10 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            ->spa()
+            // ->topNavigation() //untuk membuat navigasi diatas
+            ->sidebarCollapsibleOnDesktop()
+            ->collapsedSidebarWidth('9rem')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
